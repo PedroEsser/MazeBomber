@@ -1,16 +1,19 @@
 extends StaticBody2D
 
+onready var animationBomb = $AnimationPlayer
+var timestamp
+var lifetime
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	var time_ellapsed = OS.get_ticks_msec() - timestamp
+	if time_ellapsed > lifetime:  
+		animationBomb.play("Explosion")
+		yield(animationBomb, "animation_finished")
+		self.queue_free()
+	else:
+		animationBomb.set_speed_scale(0.5 + 1.2*time_ellapsed/2000)
+	
+func _init():
+	lifetime = ((randf()*1000)+1500)
+	timestamp = OS.get_ticks_msec()
+	

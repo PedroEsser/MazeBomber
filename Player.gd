@@ -31,3 +31,12 @@ func _physics_process(delta):
 		velocity = velocity.move_toward(Vector2.ZERO, delta * FRICTION)
 		
 	velocity = move_and_slide(velocity)
+
+func _process(delta):
+	if Input.is_action_just_released(keys[4]):
+		var test_bomb = preload("res://World/Bomb.tscn").instance()
+		test_bomb.set_scale(Vector2(2,2))
+		test_bomb.set_position(self.position)
+		add_collision_exception_with(test_bomb)
+		get_parent().add_child(test_bomb)
+		

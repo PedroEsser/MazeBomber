@@ -1,13 +1,28 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://World/Bomb.png" type="Texture" id=1]
+[ext_resource path="res://World/Tnt.png" type="Texture" id=1]
 [ext_resource path="res://World/Bomb.gd" type="Script" id=2]
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=1]
 radius = 6.28473
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id=3]
 resource_name = "Explosion"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.35, 0.5, 0.65, 0.8, 0.95 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]
+}
+
+[sub_resource type="Animation" id=2]
 length = 0.2
 loop = true
 tracks/0/type = "value"
@@ -27,13 +42,16 @@ tracks/0/keys = {
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -0.436447, -1 )
 texture = ExtResource( 1 )
-hframes = 2
+hframes = 12
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.561867, 1.12373 )
-shape = SubResource( 2 )
+position = Vector2( 7.62939e-06, 0 )
+shape = SubResource( 1 )
 one_way_collision_margin = 0.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Explosion = SubResource( 1 )
+autoplay = "Timer"
+anims/Explosion = SubResource( 3 )
+anims/Timer = SubResource( 2 )

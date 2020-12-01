@@ -35,10 +35,6 @@ func initialise_walls():
 	# make_room(21, 12, 7, 5)
 	# make_room(32, 16, 4, 6)
 	
-	var test_bomb = preload("res://World/Bomb.tscn").instance()
-	test_bomb.set_position(Vector2(32+16,32+16))
-	add_child(test_bomb)
-	
 	for i in range(maze.width):
 		for j in range(maze.height):
 			if maze.is_wall(i, j):
@@ -51,8 +47,8 @@ func initialise_walls():
 func initialise_players(n_players):
 	var players = []
 	var player_keys = [
-		["d_key", "s_key", "a_key", "w_key"],
-		["ui_right", "ui_down", "ui_left", "ui_up"]
+		["d_key", "s_key", "a_key", "w_key", "shift_key"],
+		["ui_right", "ui_down", "ui_left", "ui_up", "space_key"]
 	]
 	for _i in range(0, n_players):
 		players.append(preload("res://Player/Player.tscn").instance())
