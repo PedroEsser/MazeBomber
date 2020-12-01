@@ -27,13 +27,17 @@ func my_init(w, h, s):
 
 
 func initialise_walls():
-	# maze.put_walls(.1)
+	maze.put_walls(.1)
 	maze.empty_corners_v2(5)
 	
 	# make_room(2, 5, 6, 3)
 	# make_room(15, 7, 4, 4)
 	# make_room(21, 12, 7, 5)
 	# make_room(32, 16, 4, 6)
+	
+	var test_bomb = preload("res://World/Bomb.tscn").instance()
+	test_bomb.set_position(Vector2(32+16,32+16))
+	add_child(test_bomb)
 	
 	for i in range(maze.width):
 		for j in range(maze.height):
