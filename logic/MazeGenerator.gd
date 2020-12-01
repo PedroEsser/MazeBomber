@@ -1,24 +1,24 @@
 extends Node2D
 
-var maze
+const default_scale = 16
 var my_scale
+var scale_vector
+var maze
 var node_holder
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
-	my_init(41, 21, 16)
-	# node_holder = load("res://data_structures/Node_Holder.gd").new(5, 5)
-	# node_holder.put_wall_at(2, 3, 1)
-	# node_holder.put_wall_at(0, 0, 1)
-	# node_holder.put_wall_at(1, 1, 1)
-	# node_holder.put_wall_at(2, 2, 1)
-	# node_holder.print_walls()
+	my_init(31, 13, 32)
 
 func my_init(w, h, s):
+	my_scale = s
+	scale_vector = Vector2(s/default_scale, s/default_scale)
+	OS.set_window_size(Vector2(w, h) * s)
 	maze = load("res://data_structures/Maze.gd").new(w, h) 
 	node_holder = load("res://data_structures/Node_Holder.gd").new(w, h)
-	my_scale = s
+	
 	maze.generate_maze()
 	node_holder.print_walls()
 	initialise_walls()
@@ -29,7 +29,7 @@ func my_init(w, h, s):
 func initialise_walls():
 	maze.put_walls(.1)
 	maze.empty_corners_v2(5)
-	# 
+	
 	# make_room(2, 5, 6, 3)
 	# make_room(15, 7, 4, 4)
 	# make_room(21, 12, 7, 5)
@@ -45,6 +45,7 @@ func initialise_walls():
 				var wall = preload("res://Wall.tscn").instance()
 				node_holder.put_wall_at(i, j, wall)
 				wall.set_position(Vector2(i*my_scale + my_scale/2, j*my_scale + my_scale/2))
+				wall.set_scale(scale_vector)
 				add_child(wall)
 
 func initialise_players(n_players):
@@ -61,5 +62,6 @@ func initialise_players(n_players):
 		var aux = my_scale * 1.5 * (Vector2.ONE - dir * 2)
 		players[i].set_position(dir * my_scale * Vector2(maze.width, maze.height) + aux)
 		players[i].my_init(player_keys[i], players)
+		players[i].set_scale(scale_vector)
 		add_child(players[i])
 

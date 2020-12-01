@@ -9,11 +9,11 @@ __meta__ = {
 }
 
 [node name="Background" type="Sprite" parent="."]
-position = Vector2( -115.158, -146.522 )
+position = Vector2( 2.22176, 1.97043 )
 texture = ExtResource( 3 )
 centered = false
 region_enabled = true
-region_rect = Rect2( 0, 0, 1650, 775 )
+region_rect = Rect2( 0, 0, 2550, 1450 )
 
 [node name="MazeGenerator" type="Node2D" parent="."]
 script = ExtResource( 2 )
