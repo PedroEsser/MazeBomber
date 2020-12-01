@@ -1,8 +1,8 @@
 extends KinematicBody2D
 
-const ACCELERATION = 800
-const MAXSPEED = 80
-const FRICTION = 400
+const ACCELERATION = 1600
+const MAXSPEED = 160
+const FRICTION = 800
 var velocity = Vector2.ZERO
 var keys = []
 
@@ -11,8 +11,8 @@ onready var animationTree = $AnimationTree
 onready var animationState = animationTree.get("parameters/playback")
 
 func my_init(k, otherPlayers):
-	#for p in otherPlayers:
-	#	add_collision_exception_with(p)
+	for p in otherPlayers:
+		add_collision_exception_with(p)
 	keys = k
 
 func _physics_process(delta):
@@ -31,4 +31,3 @@ func _physics_process(delta):
 		velocity = velocity.move_toward(Vector2.ZERO, delta * FRICTION)
 		
 	velocity = move_and_slide(velocity)
-	

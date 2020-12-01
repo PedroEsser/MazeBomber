@@ -25,3 +25,8 @@ func print_walls():
 			else:
 				line += "#";
 		print(line)
+
+func destroy_wall_at(x, y):
+	if walls[y][x] != null:
+		walls[y][x].queue_free()
+		walls[y][x] = null
