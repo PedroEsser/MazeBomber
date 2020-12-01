@@ -28,7 +28,7 @@ func generate_maze():
 func step():
 	var next_direction = next_available_random_direction()
 
-	if next_direction == 0:
+	if next_direction == 0:	#se estamos num beco sem saida
 		if path_stack.empty():
 			return false
 		current = path_stack.pop_back()

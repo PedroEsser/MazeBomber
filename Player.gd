@@ -6,7 +6,9 @@ const FRICTION = 400
 var velocity = Vector2.ZERO
 var keys = []
 
-func my_init(k):
+func my_init(k, otherPlayers):
+	#for p in otherPlayers:
+	#	add_collision_exception_with(p)
 	keys = k
 
 func _physics_process(delta):
