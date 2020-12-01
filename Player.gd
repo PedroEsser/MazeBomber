@@ -11,8 +11,8 @@ onready var animationTree = $AnimationTree
 onready var animationState = animationTree.get("parameters/playback")
 
 func my_init(k, otherPlayers):
-	#for p in otherPlayers:
-	#	add_collision_exception_with(p)
+	for p in otherPlayers:
+		add_collision_exception_with(p)
 	keys = k
 
 func _physics_process(delta):

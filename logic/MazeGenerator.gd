@@ -7,7 +7,7 @@ var node_holder
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
-	my_init(11, 7, 16)
+	my_init(41, 21, 16)
 	# node_holder = load("res://data_structures/Node_Holder.gd").new(5, 5)
 	# node_holder.put_wall_at(2, 3, 1)
 	# node_holder.put_wall_at(0, 0, 1)
@@ -27,7 +27,7 @@ func my_init(w, h, s):
 
 
 func initialise_walls():
-	# maze.put_walls(.1)
+	maze.put_walls(.1)
 	maze.empty_corners_v2(5)
 	# 
 	# make_room(2, 5, 6, 3)
