@@ -16,10 +16,10 @@ func my_init():
 
 	maze.generate_maze()
 	#MapData.print_walls()
-	initialise_lights(5)
 	initialise_walls()
 	#MapData.print_walls()
-	initialise_players(1)
+	initialise_players(2)
+	initialise_lights(5)
 	
 
 
@@ -40,7 +40,10 @@ func initialise_walls():
 			if maze.is_wall(i, j):
 				var pos = Vector2(i+.5, j+.5) * GlobalVariables.my_scale
 				var wall = preload("res://World/Wall.tscn").instance()
-				wall.calculate_hp(1 - pos.distance_to(mid_point)/max_dist)
+				if maze.is_border_v2(i, j):
+					wall.set_border()
+				else:
+					wall.calculate_hp(1 - pos.distance_to(mid_point)/max_dist)
 				MapData.put_wall_at(i, j, wall)
 				wall.set_position(pos)
 				wall.set_scale(GlobalVariables.scale_vector)
@@ -49,7 +52,7 @@ func initialise_walls():
 func initialise_players(n_players):
 	var players = []
 
-	for _i in range(0, n_players):
+	for _i in range(n_players):
 		players.append(preload("res://Player/Player.tscn").instance())
 	
 	for i in range(n_players):
@@ -57,8 +60,8 @@ func initialise_players(n_players):
 		var aux = GlobalVariables.my_scale * 1.5 * (Vector2.ONE - dir * 2)
 		players[i].set_position(dir * GlobalVariables.my_scale * Vector2(maze.width, maze.height) + aux)
 			
-	for i in range(0, n_players):
-		players[i].my_init(get_keys_for_player(i), players)
+	for i in range(n_players):
+		players[i].my_init(get_keys_for_player(i), get_sprite_for_player(i), players)
 		players[i].set_scale(GlobalVariables.scale_vector)
 		add_child(players[i])
 
@@ -71,7 +74,8 @@ func initialise_lights(nLights):
 		light.set_scale(GlobalVariables.scale_vector)
 		add_child(light)
 		
-	
+func get_sprite_for_player(i):
+	return load("res://Player/Player" + str(i+1) + ".png")
 
 func get_keys_for_player(i):
 	return ["p" + str(i+1) + "_right",

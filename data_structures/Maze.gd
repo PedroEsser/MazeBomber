@@ -71,6 +71,9 @@ func is_border(pos):
 	var v = convert_to_vector(pos)
 	return v.x == 0 || v.x == width - 1 || v.y == 0 || v.y == height - 1 || pos > width * height || pos < 0
 
+func is_border_v2(i, j):
+	return i == 0 || i == width - 1 || j == 0 || j == height - 1
+
 func convert_to_position(x, y):
 	return x + y * width
 

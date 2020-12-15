@@ -10,11 +10,12 @@ onready var animationPlayer = $AnimationPlayer
 onready var animationTree = $AnimationTree
 onready var animationState = animationTree.get("parameters/playback")
 
-func my_init(k, otherPlayers):
+func my_init(k, image, otherPlayers):
 	self.set_scale(GlobalVariables.scale_vector)
 	for p in otherPlayers:
 		add_collision_exception_with(p)
 	keys = k
+	$Sprite.set_texture(image)
 
 func _physics_process(delta):
 	var input_vector = Vector2.ZERO
@@ -37,10 +38,10 @@ func _process(_delta):
 	if Input.is_action_just_pressed("mouse_click"):
 		update()
 		var ds = get_world_2d().get_direct_space_state()
-		#print(ds.intersect_ray(self.position, get_global_mouse_position(), [self]))
+		print(ds.intersect_ray(self.position, get_global_mouse_position(), [self]))
 		var collision = ds.intersect_ray(self.position, get_global_mouse_position(), [self])
 		if !collision.empty():
-			collision.get("collider").queue_free()
+			collision.get("collider").take_damage(10)
 	if Input.is_action_just_released(keys[4]):
 		var test_bomb = preload("res://World/Bomb.tscn").instance()
 		test_bomb.set_position(self.position)

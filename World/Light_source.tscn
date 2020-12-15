@@ -6,7 +6,6 @@
 [node name="Light_source" type="StaticBody2D"]
 
 [node name="Light2D" type="Light2D" parent="."]
-position = Vector2( -8, 0 )
 texture = ExtResource( 1 )
 texture_scale = 0.1
 mode = 2

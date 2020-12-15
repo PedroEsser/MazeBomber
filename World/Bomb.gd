@@ -1,8 +1,12 @@
 extends StaticBody2D
 
 onready var animationBomb = $AnimationPlayer
+const wall = preload("Wall.gd")
+const mask = 0xfffffffd
 var timestamp
 var lifetime
+var damage = 200
+var radius = 8
 var exploding = false
 
 func _process(_delta):
@@ -14,8 +18,8 @@ func _process(_delta):
 		var time_ellapsed = OS.get_ticks_msec() - timestamp
 		animationBomb.set_speed_scale(0.5 + 1.2*time_ellapsed/2000)
 		exploding = time_ellapsed > lifetime
-		#if exploding:
-		#	doExplosion()
+		if exploding:
+			doExplosion()
 
 func _init():
 	self.set_scale(GlobalVariables.scale_vector)
@@ -24,7 +28,13 @@ func _init():
 	
 func doExplosion():
 	var ds = get_world_2d().get_direct_space_state()
-	print(ds.intersect_ray(self.position, self.position + Vector2(GlobalVariables.pixel_art_scale, 0)))
+	var n = GlobalVariables.number_of_rays
+	for i in range(n):
+		var collision = ds.intersect_ray(self.position, self.position + Vector2(cos(TAU*i/n), sin(TAU*i/n)) * GlobalVariables.pixel_art_scale * radius, [self], mask)
+		if collision != null:
+			var collider = collision.get("collider")
+			if collider is wall:
+				collider.take_damage(damage/n)
 
 func _draw():
 	#draw_rays(50)
@@ -32,7 +42,7 @@ func _draw():
 
 func draw_rays(n):
 	for i in range(n):
-		draw_line(Vector2.ZERO, Vector2(cos(TAU*i/n), sin(TAU*i/n)) * GlobalVariables.pixel_art_scale * 5, Color.red)
+		draw_line(Vector2.ZERO, Vector2(cos(TAU*i/n), sin(TAU*i/n)) * GlobalVariables.pixel_art_scale * radius, Color.red)
 
 func destroy_walls_around_test(r):
 	var start_x = floor(self.position.x / GlobalVariables.my_scale) - r
