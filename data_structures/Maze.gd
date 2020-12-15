@@ -14,8 +14,8 @@ func _init(w, h):
 	width = w
 	height = h
 	directions_1d = [1, w, -1, -w]
-	var x = floor(discrete(0, width - 2) / 2) * 2 + 1
-	var y = floor(discrete(0, height - 2) / 2) * 2 + 1
+	var x = floor(Utils.discrete(0, width - 2) / 2) * 2 + 1
+	var y = floor(Utils.discrete(0, height - 2) / 2) * 2 + 1
 	current = convert_to_position(x, y)
 	path_positions = [current]
 	path_stack = [current]
@@ -28,7 +28,7 @@ func generate_maze():
 func step():
 	var next_direction = next_available_random_direction()
 
-	if next_direction == 0:	#se estamos num beco sem saida
+	if next_direction == 0:	# if at a dead end
 		if path_stack.empty():
 			return false
 		current = path_stack.pop_back()
@@ -53,7 +53,7 @@ func next_available_random_direction():
 	if available_directions.empty():
 		return 0
 	
-	return available_directions[discrete(0, available_directions.size())]
+	return available_directions[Utils.discrete(0, available_directions.size())]
 
 func is_path(x, y):
 	return convert_to_position(x, y) in path_positions
@@ -68,19 +68,14 @@ func is_wall_v2(pos):
 	return !pos in path_positions
 
 func is_border(pos):
-	var p = convert_to_point(pos)
-	return p[0] == 0 || p[0] == width - 1 || p[1] == 0 || p[1] == height - 1 || pos > width * height || pos < 0
+	var v = convert_to_vector(pos)
+	return v.x == 0 || v.x == width - 1 || v.y == 0 || v.y == height - 1 || pos > width * height || pos < 0
 
 func convert_to_position(x, y):
 	return x + y * width
 
-func convert_to_point(pos):
-	return [int(pos) % width, int(pos) / width]
-
-func discrete(i, f):
-	var r = f - i
-	return floor(randf() * r + i)
-
+func convert_to_vector(pos):
+	return Vector2(int(pos) % width, int(pos) / width)
 
 func empty_corners(s):
 
@@ -110,5 +105,15 @@ func make_room(x, y, w, h):
 
 func put_walls(percent):
 	var n = floor(path_positions.size() * percent)
-	for _i in range(0, n):
-		path_positions.remove(discrete(0, path_positions.size()))
+	for _i in range(n):
+		path_positions.remove(Utils.discrete(0, path_positions.size()))
+
+func get_random_paths(nPaths):
+	assert(nPaths < path_positions.size(), "")
+	var paths = []
+	for _i in range(nPaths):
+		var random_pos = Utils.discrete(0, path_positions.size())
+		paths.append(path_positions[random_pos])
+		path_positions.remove(random_pos)
+	path_positions += paths
+	return paths
