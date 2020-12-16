@@ -3,9 +3,11 @@ extends StaticBody2D
 onready var animationBomb = $AnimationPlayer
 const wall = preload("Wall.gd")
 const mask = 0xfffffffd
+const base_damage = 200
+const base_radius = 6
 var timestamp
 var lifetime
-var damage = 200
+var damage
 var radius = 8
 var exploding = false
 
@@ -21,10 +23,13 @@ func _process(_delta):
 		if exploding:
 			doExplosion()
 
-func _init():
+func my_init(extra_damage, extra_radius):
 	self.set_scale(GlobalVariables.scale_vector)
 	lifetime = ((randf()*1000)+1500)
 	timestamp = OS.get_ticks_msec()
+	damage = base_damage + extra_damage
+	damage = Utils.normal(damage, 30, damage-100, damage+100)
+	radius = base_radius + extra_radius
 	
 func doExplosion():
 	var ds = get_world_2d().get_direct_space_state()
@@ -44,13 +49,3 @@ func draw_rays(n):
 	for i in range(n):
 		draw_line(Vector2.ZERO, Vector2(cos(TAU*i/n), sin(TAU*i/n)) * GlobalVariables.pixel_art_scale * radius, Color.red)
 
-func destroy_walls_around_test(r):
-	var start_x = floor(self.position.x / GlobalVariables.my_scale) - r
-	var start_y = floor(self.position.y / GlobalVariables.my_scale) - r
-	var end_x = start_x + 2 * r + 1
-	var end_y = start_y + 2 * r + 1
-	for i in range(start_x, end_x, 1):
-		for j in range(start_y, end_y, 1):
-			var wall = MapData.get_wall_at(j, i)
-			if wall:
-				wall.queue_free()

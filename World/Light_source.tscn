@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Shadows/light.png" type="Texture" id=1]
-[ext_resource path="res://World/images/Boombox.png" type="Texture" id=2]
+[ext_resource path="res://World/images/Light.png" type="Texture" id=2]
+[ext_resource path="res://World/Light_source.gd" type="Script" id=3]
 
 [node name="Light_source" type="StaticBody2D"]
+script = ExtResource( 3 )
 
 [node name="Light2D" type="Light2D" parent="."]
 texture = ExtResource( 1 )
@@ -12,5 +14,4 @@ mode = 2
 shadow_enabled = true
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.6, 0.6 )
 texture = ExtResource( 2 )

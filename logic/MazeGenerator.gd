@@ -1,6 +1,7 @@
 extends Node2D
 
 var maze
+var power_up_randomiser
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -8,10 +9,11 @@ func _ready():
 	my_init()
 
 func my_init():
-	#GlobalVariables.change_scale(32)
-	#GlobalVariables.set_dimensions(33, 17)
+	GlobalVariables.change_scale(32)
+	GlobalVariables.set_dimensions(43, 23)
 	OS.set_window_size(Vector2(GlobalVariables.my_width, GlobalVariables.my_height) * GlobalVariables.my_scale)
 	maze = load("res://data_structures/Maze.gd").new(GlobalVariables.my_width, GlobalVariables.my_height)
+	power_up_randomiser = load("res://Pickupables/power_up_randomiser.gd").new()
 	MapData.initialise_wall_matrix()
 
 	maze.generate_maze()
@@ -19,7 +21,8 @@ func my_init():
 	initialise_walls()
 	#MapData.print_walls()
 	initialise_players(2)
-	initialise_lights(5)
+	initialise_lights(15)
+	initialise_power_ups(10)
 	
 
 
@@ -73,6 +76,15 @@ func initialise_lights(nLights):
 		light.set_position((vec + Vector2(.5, .5)) * GlobalVariables.my_scale)
 		light.set_scale(GlobalVariables.scale_vector)
 		add_child(light)
+
+func initialise_power_ups(nPowerUps):
+	var random_positions = maze.get_random_paths(nPowerUps)
+	for pos in random_positions:
+		var vec = maze.convert_to_vector(pos)
+		var power_up = power_up_randomiser.get_random_power_up()
+		#power_up.set_position((vec + Vector2(.5, .5)) * GlobalVariables.my_scale)
+		#power_up.set_scale(GlobalVariables.scale_vector)
+		add_child(power_up)
 		
 func get_sprite_for_player(i):
 	return load("res://Player/Player" + str(i+1) + ".png")

@@ -5,6 +5,8 @@ const MAXSPEED = 160
 const FRICTION = 800
 var velocity = Vector2.ZERO
 var keys = []
+var extra_damage = 0
+var extra_radius = 0
 
 onready var animationPlayer = $AnimationPlayer
 onready var animationTree = $AnimationTree
@@ -16,6 +18,7 @@ func my_init(k, image, otherPlayers):
 		add_collision_exception_with(p)
 	keys = k
 	$Sprite.set_texture(image)
+	
 
 func _physics_process(delta):
 	var input_vector = Vector2.ZERO
@@ -43,7 +46,8 @@ func _process(_delta):
 		if !collision.empty():
 			collision.get("collider").take_damage(10)
 	if Input.is_action_just_released(keys[4]):
-		var test_bomb = preload("res://World/Bomb.tscn").instance()
+		var test_bomb = preload("res://World/TNT.tscn").instance()
+		test_bomb.my_init(extra_damage, extra_radius)
 		test_bomb.set_position(self.position)
 		add_collision_exception_with(test_bomb)
 		get_parent().add_child(test_bomb)
