@@ -9,12 +9,12 @@ func _ready():
 
 func my_init():
 	GlobalVariables.change_scale(32)
-	GlobalVariables.set_dimensions(43, 23)
+	GlobalVariables.set_dimensions(42, 22)
 	OS.set_window_size(Vector2(GlobalVariables.my_width, GlobalVariables.my_height) * GlobalVariables.my_scale)
 	maze = load("res://data_structures/Maze.gd").new(GlobalVariables.my_width, GlobalVariables.my_height)
 	maze.generate_maze()
 	initialise_walls()
-	initialise_players(1)
+	initialise_players(2)
 	initialise_spawners(5)
 	initialise_lights(15)
 	

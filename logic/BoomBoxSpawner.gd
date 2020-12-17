@@ -8,7 +8,7 @@ func _init(pos):
 	add_child(timer)
 	timer.autostart = false
 	timer.connect("timeout", self, "spawn")
-	timer.wait_time = 5
+	timer.wait_time = 8
 
 func start_timer():
 	timer.start()

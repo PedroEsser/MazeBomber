@@ -37,17 +37,18 @@ func doExplosion():
 	var n = GlobalVariables.number_of_rays
 	var damage_per_ray = damage/n
 	for i in range(n):
-		var collision = ds.intersect_ray(self.position, self.position + Vector2(cos(TAU*i/n), sin(TAU*i/n)) * GlobalVariables.pixel_art_scale * radius, [self], mask)
+		var collision = ds.intersect_ray(self.position, self.position + Vector2(cos(TAU*i/n), sin(TAU*i/n)) * GlobalVariables.my_scale * radius, [self], mask)
 		if collision != null && !collision.empty():
 			var collider = collision.get("collider")
 			if collider is wall || collider is player:
 				collider.take_damage(damage_per_ray)
 
 func _draw():
-	#draw_rays(50)
+	#draw_rays()
 	pass
 
-func draw_rays(n):
+func draw_rays():
+	var n = GlobalVariables.number_of_rays
 	for i in range(n):
 		draw_line(Vector2.ZERO, Vector2(cos(TAU*i/n), sin(TAU*i/n)) * GlobalVariables.pixel_art_scale * radius, Color.red)
 

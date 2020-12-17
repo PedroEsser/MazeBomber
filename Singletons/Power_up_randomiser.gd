@@ -9,7 +9,7 @@ const power_ups = [
 ]
 
 func get_random_power_up():
-	var choice = Utils.diracs([0.8, 0.1, 0.025, 0.025, 0.025, 0.025])
+	var choice = Utils.diracs([0.1, 0.1, 0.725, 0.025, 0.025, 0.025])
 	if choice == 0:
 		return null
 	return power_ups[choice-1]

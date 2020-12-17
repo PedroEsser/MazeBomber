@@ -7,7 +7,7 @@ func my_init(s):
 	spawner = s
 
 func pick_up(body):
-	body.number_of_bombs += 1
+	body.number_of_bombs = body.max_bombs
 	spawner.start_timer()
 
 func _on_BoomBox_body_entered(body):

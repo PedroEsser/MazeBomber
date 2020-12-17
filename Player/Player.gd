@@ -56,14 +56,16 @@ func _process(_delta):
 		add_collision_exception_with(test_bomb)
 		get_parent().add_child(test_bomb)
 		
+func add_shield(shield):
+	$HPBar.add_shield(shield)
+
 func add_hp(hp):
-	$HPBar.set_hp($HPBar.get_hp() + hp)
+	$HPBar.add_hp(hp)
 
 func take_damage(damage):
-	if damage > $HPBar.get_hp():
+	var dead = $HPBar.take_damage(damage)
+	if dead:#die
 		pass
-	else:
-		add_hp(-damage)
 
 func _draw():
 	#draw_line(Vector2.ZERO, get_local_mouse_position(), Color.red)
