@@ -8,7 +8,7 @@ func _ready():
 
 func my_init():
 	#GlobalVariables.change_scale(32)
-	self.set_position(GlobalVariables.offset)
+	#GlobalVariables.set_dimensions(43, 23)
 	maze = load("res://data_structures/Maze.gd").new(GlobalVariables.my_width, GlobalVariables.my_height)
 	maze.generate_maze()
 	initialise_walls()

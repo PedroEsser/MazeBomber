@@ -10,20 +10,15 @@ var my_width
 var my_height
 var my_scale
 var scale_vector
-var offset
 
 func _init():
+	set_dimensions(default_width, default_height)
 	change_scale(default_scale)
 
+func set_dimensions(w, h):
+	my_width = w
+	my_height = h
+	
 func change_scale(s):
 	my_scale = s
 	scale_vector = Vector2(s/pixel_art_scale, s/pixel_art_scale)
-	var screen_dimensions = OS.get_real_window_size()
-	var maze_dimensions = screen_dimensions / my_scale
-	my_width = int(maze_dimensions.x)
-	my_height = int(maze_dimensions.y)
-	if my_width % 2 == 0:
-		my_width -= 1
-	if my_height % 2 == 0:
-		my_height -= 1
-	offset = (screen_dimensions - Vector2(my_width, my_height) * my_scale)/2
