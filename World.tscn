@@ -14,11 +14,10 @@ __meta__ = {
 }
 
 [node name="Background" type="Sprite" parent="."]
-position = Vector2( -88, -64 )
 texture = ExtResource( 3 )
 centered = false
 region_enabled = true
-region_rect = Rect2( 0, 0, 1464, 800 )
+region_rect = Rect2( 0, 0, 1312, 736 )
 
 [node name="MazeGenerator" type="Node2D" parent="."]
 script = ExtResource( 2 )
@@ -42,7 +41,8 @@ __meta__ = {
 [node name="BlackOverlay" type="ColorRect" parent="Pause"]
 anchor_right = 34.4
 anchor_bottom = 18.4
-margin_bottom = -6.10352e-05
+margin_right = -63.9999
+margin_bottom = 6.10352e-05
 color = Color( 0, 0, 0, 0.364706 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -50,9 +50,9 @@ __meta__ = {
 
 [node name="TextureRect" type="TextureRect" parent="Pause"]
 material = SubResource( 1 )
-margin_left = 520.0
+margin_left = 500.0
 margin_top = 300.0
-margin_right = 600.0
+margin_right = 580.0
 margin_bottom = 325.0
 rect_scale = Vector2( 4, 4 )
 texture = ExtResource( 4 )
