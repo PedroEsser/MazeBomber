@@ -16,7 +16,7 @@ func my_init():
 	initialise_walls()
 	initialise_players(2)
 
-	#initialise_lights(15)
+	#initialise_lights(10)
 	initialise_spawners()
 	
 func initialise_walls():
@@ -42,7 +42,7 @@ func initialise_walls():
 					wall.calculate_hp(1 - pos.distance_to(mid_point)/max_dist)
 				wall.set_position(pos)
 				wall.set_scale(GlobalVariables.scale_vector)
-				add_child(wall)
+				$YSort.add_child(wall)
 
 func initialise_players(n_players):
 	var players = []
@@ -58,10 +58,10 @@ func initialise_players(n_players):
 	for i in range(n_players):
 		players[i].my_init(get_keys_for_player(i), get_sprite_for_player(i), players)
 		players[i].set_scale(GlobalVariables.scale_vector)
-		add_child(players[i])
+		$YSort.add_child(players[i])
 		var spawner = load("res://logic/BoomBoxSpawner.gd").new(players[i].position)
 		maze.remove_path(players[i].position)
-		add_child(spawner)
+		$YSort.add_child(spawner)
 		spawner.spawn()
 
 func initialise_lights(n_lights):
@@ -78,7 +78,7 @@ func initialise_spawners():
 		if Utils.diracs([.05, .95]) == 0:
 			var vec = maze.convert_to_vector(pos)
 			var spawner = load("res://logic/BoomBoxSpawner.gd").new((vec + Vector2(.5, .5)) * GlobalVariables.my_scale)
-			add_child(spawner)
+			$YSort.add_child(spawner)
 			spawner.spawn()
 	pass
 

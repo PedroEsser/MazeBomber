@@ -64,8 +64,8 @@ func add_hp(hp):
 
 func take_damage(damage):
 	var dead = $HPBar.take_damage(damage)
-	if dead:#die
-		pass
+	if dead:
+		queue_free()
 
 func _draw():
 	#draw_line(Vector2.ZERO, get_local_mouse_position(), Color.red)
