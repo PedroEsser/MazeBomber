@@ -3,8 +3,8 @@ extends Node2D
 const number_of_rays = 128
 const pixel_art_scale = 16
 const default_scale = 32
-const default_width = 43
-const default_height = 25
+const default_width = 41
+const default_height = 23
 
 var my_width
 var my_height

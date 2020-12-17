@@ -17,6 +17,4 @@ func spawn():
 	var boom_box = preload("res://Pickupables/BoomBox.tscn").instance()
 	boom_box.my_init(self)
 	add_child(boom_box)
-
-func _on_timer_timeout():
-	print("yeghj")
+	timer.stop()

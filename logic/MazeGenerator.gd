@@ -15,7 +15,7 @@ func my_init():
 	initialise_players(2)
 
 	initialise_lights(10)
-	initialise_spawners()
+	#initialise_spawners()
 	
 func initialise_walls():
 	maze.put_walls(.1)

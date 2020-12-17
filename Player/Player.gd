@@ -10,7 +10,8 @@ var extra_radius = 0
 var max_speed = BASEMAXSPEED
 var max_bombs = 1
 var number_of_bombs = 1
-var big_bombs = 0
+var big_bombs = 100
+var timer
 
 onready var animationPlayer = $AnimationPlayer
 onready var animationTree = $AnimationTree
@@ -56,6 +57,14 @@ func _process(_delta):
 		test_bomb.set_position(self.position)
 		add_collision_exception_with(test_bomb)
 		get_parent().add_child(test_bomb)
+
+	if Input.is_action_just_released(keys[5]) && big_bombs != 0:
+		big_bombs -= 1
+		var test_bomb = preload("res://World/BigBomb.tscn").instance()
+		test_bomb.my_init(self)
+		test_bomb.set_position(self.position)
+		add_collision_exception_with(test_bomb)
+		get_parent().add_child(test_bomb)
 		
 func add_shield(shield):
 	$HPBar.add_shield(shield)
@@ -67,3 +76,16 @@ func take_damage(damage):
 	var dead = $HPBar.take_damage(damage)
 	if dead:
 		queue_free()
+
+func speed_up():
+	max_speed += 100
+	timer = Timer.new()
+	add_child(timer)
+	timer.autostart = false
+	timer.connect("timeout", self, "speed_down")
+	timer.wait_time = 8
+	timer.start()
+
+func speed_down():
+	max_speed -= 100
+	timer.stop()

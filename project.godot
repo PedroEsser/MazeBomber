@@ -30,7 +30,6 @@ PowerUpRandomiser="*res://Singletons/Power_up_randomiser.gd"
 
 window/size/width=1000
 window/size/resizable=false
-window/size/fullscreen=true
 
 [importer_defaults]
 
