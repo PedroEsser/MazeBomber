@@ -24,6 +24,7 @@ config/icon="res://icon.png"
 MapData="*res://Singletons/Map_data.gd"
 GlobalVariables="*res://Singletons/Global_variables.gd"
 Utils="*res://Singletons/Utils.gd"
+PowerUpRandomiser="*res://Singletons/Power_up_randomiser.gd"
 
 [display]
 

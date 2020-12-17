@@ -26,11 +26,12 @@ func diracs(dirac_array):
         sum += dirac
     assert(sum == 1, "ERROR: the sum of the dirac values must be equal to 1!")
     var i = 0
-    var acc = dirac_array[i]
+    var acc = dirac_array[0]
     var u = randf()
     while acc != 1:
         if u < acc:
             return i
-        acc += dirac_array[++i]
+        i += 1
+        acc += dirac_array[i]
     return i
-    
+

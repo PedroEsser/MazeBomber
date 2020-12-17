@@ -1,20 +1,11 @@
 extends Area2D
 
+const player = preload("res://Player/Player.gd")
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
+func pick_up(body):
+	body.max_speed += 20
 
 func _on_SpeedPowerUp_body_entered(body):
-	pass # Replace with function body.
+	if body is player:
+		pick_up(body)
+		queue_free()

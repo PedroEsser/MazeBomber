@@ -1,6 +1,6 @@
 extends Node2D
 
-const number_of_rays = 50
+const number_of_rays = 128
 const pixel_art_scale = 16
 const default_scale = 32
 const default_width = 41

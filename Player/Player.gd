@@ -1,12 +1,15 @@
 extends KinematicBody2D
 
 const ACCELERATION = 1600
-const MAXSPEED = 160
+const BASEMAXSPEED = 160
 const FRICTION = 800
 var velocity = Vector2.ZERO
 var keys = []
 var extra_damage = 0
 var extra_radius = 0
+var max_speed = BASEMAXSPEED
+var max_bombs = 1
+var number_of_bombs = 1
 
 onready var animationPlayer = $AnimationPlayer
 onready var animationTree = $AnimationTree
@@ -30,7 +33,7 @@ func _physics_process(delta):
 		animationTree.set("parameters/Idle/blend_position", input_vector)
 		animationTree.set("parameters/Run/blend_position", input_vector)
 		animationState.travel("Run")
-		velocity = velocity.move_toward(input_vector * MAXSPEED, ACCELERATION * delta)
+		velocity = velocity.move_toward(input_vector * max_speed, ACCELERATION * delta)
 	else:
 		animationState.travel("Idle")
 		velocity = velocity.move_toward(Vector2.ZERO, delta * FRICTION)
@@ -38,20 +41,29 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity)
 
 func _process(_delta):
-	if Input.is_action_just_pressed("mouse_click"):
-		update()
-		var ds = get_world_2d().get_direct_space_state()
-		print(ds.intersect_ray(self.position, get_global_mouse_position(), [self]))
-		var collision = ds.intersect_ray(self.position, get_global_mouse_position(), [self])
-		if !collision.empty():
-			collision.get("collider").take_damage(10)
-	if Input.is_action_just_released(keys[4]):
+	#if Input.is_action_just_pressed("mouse_click"):
+	#	update()
+	#	var ds = get_world_2d().get_direct_space_state()
+	#	print(ds.intersect_ray(self.position, get_global_mouse_position(), [self]))
+	#	var collision = ds.intersect_ray(self.position, get_global_mouse_position(), [self])
+	#	if !collision.empty():
+	#		collision.get("collider").take_damage(10)
+	if Input.is_action_just_released(keys[4]) && number_of_bombs != 0:
+		number_of_bombs -= 1
 		var test_bomb = preload("res://World/TNT.tscn").instance()
-		test_bomb.my_init(extra_damage, extra_radius)
+		test_bomb.my_init(self)
 		test_bomb.set_position(self.position)
 		add_collision_exception_with(test_bomb)
 		get_parent().add_child(test_bomb)
 		
+func add_hp(hp):
+	$HPBar.set_hp($HPBar.get_hp() + hp)
+
+func take_damage(damage):
+	if damage > $HPBar.get_hp():
+		pass
+	else:
+		add_hp(-damage)
 
 func _draw():
 	#draw_line(Vector2.ZERO, get_local_mouse_position(), Color.red)

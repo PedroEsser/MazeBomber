@@ -1,7 +1,6 @@
 extends Node2D
 
 var maze
-var power_up_randomiser
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -13,19 +12,12 @@ func my_init():
 	GlobalVariables.set_dimensions(43, 23)
 	OS.set_window_size(Vector2(GlobalVariables.my_width, GlobalVariables.my_height) * GlobalVariables.my_scale)
 	maze = load("res://data_structures/Maze.gd").new(GlobalVariables.my_width, GlobalVariables.my_height)
-	power_up_randomiser = load("res://Pickupables/power_up_randomiser.gd").new()
-	MapData.initialise_wall_matrix()
-
 	maze.generate_maze()
-	#MapData.print_walls()
 	initialise_walls()
-	#MapData.print_walls()
-	initialise_players(2)
+	initialise_players(1)
+	initialise_spawners(5)
 	initialise_lights(15)
-	initialise_power_ups(10)
 	
-
-
 func initialise_walls():
 	maze.put_walls(.1)
 	maze.empty_corners_v2(5)
@@ -47,7 +39,6 @@ func initialise_walls():
 					wall.set_border()
 				else:
 					wall.calculate_hp(1 - pos.distance_to(mid_point)/max_dist)
-				MapData.put_wall_at(i, j, wall)
 				wall.set_position(pos)
 				wall.set_scale(GlobalVariables.scale_vector)
 				add_child(wall)
@@ -67,25 +58,23 @@ func initialise_players(n_players):
 		players[i].my_init(get_keys_for_player(i), get_sprite_for_player(i), players)
 		players[i].set_scale(GlobalVariables.scale_vector)
 		add_child(players[i])
+		var spawner = load("res://logic/BoomBoxSpawner.gd").new(players[i].position)
+		add_child(spawner)
+		spawner.spawn()
 
-func initialise_lights(nLights):
-	var random_positions = maze.get_random_paths(nLights)
+func initialise_lights(n_lights):
+	var random_positions = maze.get_random_paths(n_lights)
 	for pos in random_positions:
 		var vec = maze.convert_to_vector(pos)
 		var light = preload("res://World/Light_source.tscn").instance()
 		light.set_position((vec + Vector2(.5, .5)) * GlobalVariables.my_scale)
 		light.set_scale(GlobalVariables.scale_vector)
 		add_child(light)
-
-func initialise_power_ups(nPowerUps):
-	var random_positions = maze.get_random_paths(nPowerUps)
-	for pos in random_positions:
-		var vec = maze.convert_to_vector(pos)
-		var power_up = power_up_randomiser.get_random_power_up()
-		#power_up.set_position((vec + Vector2(.5, .5)) * GlobalVariables.my_scale)
-		#power_up.set_scale(GlobalVariables.scale_vector)
-		add_child(power_up)
 		
+func initialise_spawners(n_spawners):
+	#for p in play
+	pass
+
 func get_sprite_for_player(i):
 	return load("res://Player/Player" + str(i+1) + ".png")
 
