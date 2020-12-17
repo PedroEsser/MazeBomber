@@ -1,15 +1,15 @@
 extends Node2D
 
 const power_ups = [
-	"ShieldPowerUp",
-	"BigBombPowerUp",
 	"HPPowerUp",
 	"SpeedPowerUp",
-	"MultipleTNTPowerUp"
+	"ShieldPowerUp",
+	"MultipleTNTPowerUp",
+	"BigBombPowerUp"
 ]
 
 func get_random_power_up():
-	var choice = Utils.diracs([0.1, 0.8, 0.025, 0.025, 0.025, 0.025])
+	var choice = Utils.diracs([0.85, 0.05, 0.03, 0.03, 0.02, 0.02])
 	if choice == 0:
 		return null
 	return power_ups[choice-1]

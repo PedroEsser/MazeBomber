@@ -20,7 +20,7 @@ func take_damage(damage):
 	return health <= 0
 
 func add_hp(hp):
-	health = hp
+	health = min(100, hp + health)
 	update()
 
 func add_shield(amount):

@@ -8,15 +8,16 @@ func _ready():
 	my_init()
 
 func my_init():
-	GlobalVariables.change_scale(32)
-	GlobalVariables.set_dimensions(42, 22)
+	#GlobalVariables.change_scale(32)
+	#GlobalVariables.set_dimensions(43, 23)
 	OS.set_window_size(Vector2(GlobalVariables.my_width, GlobalVariables.my_height) * GlobalVariables.my_scale)
 	maze = load("res://data_structures/Maze.gd").new(GlobalVariables.my_width, GlobalVariables.my_height)
 	maze.generate_maze()
 	initialise_walls()
 	initialise_players(2)
-	initialise_spawners(5)
-	initialise_lights(15)
+
+	#initialise_lights(15)
+	initialise_spawners()
 	
 func initialise_walls():
 	maze.put_walls(.1)
@@ -59,6 +60,7 @@ func initialise_players(n_players):
 		players[i].set_scale(GlobalVariables.scale_vector)
 		add_child(players[i])
 		var spawner = load("res://logic/BoomBoxSpawner.gd").new(players[i].position)
+		maze.remove_path(players[i].position)
 		add_child(spawner)
 		spawner.spawn()
 
@@ -66,13 +68,18 @@ func initialise_lights(n_lights):
 	var random_positions = maze.get_random_paths(n_lights)
 	for pos in random_positions:
 		var vec = maze.convert_to_vector(pos)
-		var light = preload("res://World/Light_source.tscn").instance()
+		var light = preload("res://Shadows/Light_source.tscn").instance()
 		light.set_position((vec + Vector2(.5, .5)) * GlobalVariables.my_scale)
 		light.set_scale(GlobalVariables.scale_vector)
 		add_child(light)
 		
-func initialise_spawners(n_spawners):
-	#for p in play
+func initialise_spawners():
+	for pos in maze.path_positions:
+		if Utils.diracs([.05, .95]) == 0:
+			var vec = maze.convert_to_vector(pos)
+			var spawner = load("res://logic/BoomBoxSpawner.gd").new((vec + Vector2(.5, .5)) * GlobalVariables.my_scale)
+			add_child(spawner)
+			spawner.spawn()
 	pass
 
 func get_sprite_for_player(i):

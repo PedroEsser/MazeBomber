@@ -6,28 +6,27 @@ var player = load("res://Player/Player.gd")
 const mask = 0xfffffffd
 const base_damage = 200
 const base_radius = 6
-var timestamp
+var time_ellapsed = 0
 var lifetime
 var damage
 var radius = 8
 var exploding = false
 
-func _process(_delta):
+func _process(delta):
 	if exploding:
 		animationBomb.play("Explosion")
 		yield(animationBomb, "animation_finished")
 		self.queue_free()
 	else:
-		var time_ellapsed = OS.get_ticks_msec() - timestamp
-		animationBomb.set_speed_scale(0.5 + 1.2*time_ellapsed/2000)
+		time_ellapsed += delta
+		animationBomb.set_speed_scale(0.5 + .6*time_ellapsed)
 		exploding = time_ellapsed > lifetime
 		if exploding:
 			doExplosion()
 
 func my_init(owner):
 	self.set_scale(GlobalVariables.scale_vector)
-	lifetime = Utils.uniform(1500, 2500)
-	timestamp = OS.get_ticks_msec()
+	lifetime = Utils.uniform(1500, 2500)/1000
 	damage = base_damage + owner.extra_damage
 	damage = Utils.normal(damage, 30, damage-100, damage+100)
 	radius = base_radius + owner.extra_radius

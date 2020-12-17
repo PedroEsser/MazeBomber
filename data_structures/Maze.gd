@@ -20,7 +20,6 @@ func _init(w, h):
 	path_positions = [current]
 	path_stack = [current]
 
-
 func generate_maze():
 	while step():
 		pass
@@ -54,6 +53,15 @@ func next_available_random_direction():
 		return 0
 	
 	return available_directions[Utils.discrete(0, available_directions.size())]
+
+func remove_path(vector):
+	var x = floor(vector.x / GlobalVariables.my_scale)
+	var y = floor(vector.y / GlobalVariables.my_scale)
+	var pos = convert_to_position(x, y)
+	for i in range(path_positions.size()):
+		if path_positions[i] == pos:
+			path_positions.remove(i)
+			return
 
 func is_path(x, y):
 	return convert_to_position(x, y) in path_positions
@@ -118,5 +126,4 @@ func get_random_paths(nPaths):
 		var random_pos = Utils.discrete(0, path_positions.size())
 		paths.append(path_positions[random_pos])
 		path_positions.remove(random_pos)
-	path_positions += paths
 	return paths
