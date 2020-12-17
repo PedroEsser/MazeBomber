@@ -3,7 +3,7 @@ extends Area2D
 const player = preload("res://Player/Player.gd")
 
 func pick_up(body):
-	pass
+	body.add_shield(50)
 
 func _on_ShieldPowerUp_body_entered(body):
 	if body is player:
