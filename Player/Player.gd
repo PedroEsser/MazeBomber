@@ -10,6 +10,7 @@ var extra_radius = 0
 var max_speed = BASEMAXSPEED
 var max_bombs = 1
 var number_of_bombs = 1
+var big_bombs = 0
 
 onready var animationPlayer = $AnimationPlayer
 onready var animationTree = $AnimationTree
@@ -66,7 +67,3 @@ func take_damage(damage):
 	var dead = $HPBar.take_damage(damage)
 	if dead:
 		queue_free()
-
-func _draw():
-	#draw_line(Vector2.ZERO, get_local_mouse_position(), Color.red)
-	pass

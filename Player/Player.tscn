@@ -1,7 +1,7 @@
 [gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
-[ext_resource path="res://Shadows/light.png" type="Texture" id=2]
+[ext_resource path="res://Shadows/light2.png" type="Texture" id=2]
 [ext_resource path="res://Player/HPBar.gd" type="Script" id=3]
 
 [sub_resource type="CanvasItemMaterial" id=1]
@@ -240,7 +240,7 @@ parameters/Run/blend_position = Vector2( 0, 0 )
 
 [node name="Light2D" type="Light2D" parent="."]
 texture = ExtResource( 2 )
-texture_scale = 0.3
+texture_scale = 4.0
 mode = 2
 range_item_cull_mask = -2147483647
 shadow_enabled = true

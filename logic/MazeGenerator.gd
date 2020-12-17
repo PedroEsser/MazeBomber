@@ -2,24 +2,19 @@ extends Node2D
 
 var maze
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	OS.window_fullscreen = true
-
-
 	randomize()
 	my_init()
 
 func my_init():
 	#GlobalVariables.change_scale(32)
-	#GlobalVariables.set_dimensions(43, 23)
-	OS.set_window_size(Vector2(GlobalVariables.my_width, GlobalVariables.my_height) * GlobalVariables.my_scale)
+	self.set_position(GlobalVariables.offset)
 	maze = load("res://data_structures/Maze.gd").new(GlobalVariables.my_width, GlobalVariables.my_height)
 	maze.generate_maze()
 	initialise_walls()
 	initialise_players(2)
 
-	#initialise_lights(10)
+	initialise_lights(10)
 	initialise_spawners()
 	
 func initialise_walls():
@@ -93,4 +88,5 @@ func get_keys_for_player(i):
 			"p" + str(i+1) + "_down", 
 			"p" + str(i+1) + "_left", 
 			"p" + str(i+1) + "_up", 
-			"p" + str(i+1) + "_bomb"]
+			"p" + str(i+1) + "_bomb",
+			"p" + str(i+1) + "_big_bomb"]
