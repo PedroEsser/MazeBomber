@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
+[ext_resource path="res://Interface/Pause.gd" type="Script" id=1]
 [ext_resource path="res://logic/MazeGenerator.gd" type="Script" id=2]
 [ext_resource path="res://World/images/GrassBackground.png" type="Texture" id=3]
 
@@ -13,7 +14,7 @@ position = Vector2( -88, -64 )
 texture = ExtResource( 3 )
 centered = false
 region_enabled = true
-region_rect = Rect2( 0, 0, 2550, 1450 )
+region_rect = Rect2( 0, 0, 1464, 800 )
 
 [node name="MazeGenerator" type="Node2D" parent="."]
 script = ExtResource( 2 )
@@ -21,3 +22,22 @@ script = ExtResource( 2 )
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 light_mask = -2147483647
 color = Color( 0.333333, 0.333333, 0.333333, 1 )
+
+[node name="Pause" type="Control" parent="."]
+pause_mode = 2
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlackOverlay" type="ColorRect" parent="Pause"]
+anchor_right = 34.4
+anchor_bottom = 18.4
+margin_bottom = -6.10352e-05
+color = Color( 0, 0, 0, 0.364706 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
