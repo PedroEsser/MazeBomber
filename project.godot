@@ -28,14 +28,9 @@ PowerUpRandomiser="*res://Singletons/Power_up_randomiser.gd"
 
 [display]
 
-<<<<<<< Updated upstream
-window/size/width=1000
-window/size/resizable=false
-=======
 window/size/width=1312
 window/size/height=736
 window/stretch/mode="viewport"
->>>>>>> Stashed changes
 
 [importer_defaults]
 
