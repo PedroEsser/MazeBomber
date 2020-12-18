@@ -4,7 +4,7 @@ onready var animationBomb = $AnimationPlayer
 const wall = preload("Wall.gd")
 var player = load("res://Player/Player.gd")
 const mask = 0xfffffffd
-const base_damage = 1000
+const base_damage = 1200
 const base_radius = 10
 var time_ellapsed = 0
 var lifetime

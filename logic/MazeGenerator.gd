@@ -18,12 +18,12 @@ func my_init():
 	initialise_spawners()
 	
 func initialise_walls():
-	maze.put_walls(.1)
+	maze.put_walls(.2)
 	maze.empty_corners_v2(5)
 	
 	# make_room(2, 5, 6, 3)
 	# make_room(15, 7, 4, 4)
-	# make_room(21, 12, 7, 5)
+	maze.make_room(16, 8, 8, 6)
 	# make_room(32, 16, 4, 6)
 
 	var mid_point = Vector2(maze.width/2, maze.height/2) * GlobalVariables.my_scale
