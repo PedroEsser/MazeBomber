@@ -11,7 +11,7 @@ var max_speed = BASEMAXSPEED
 var max_bombs = 1
 var number_of_bombs = 1
 var big_bombs = 0
-var timer
+var speed_up_timer
 
 onready var animationPlayer = $AnimationPlayer
 onready var animationTree = $AnimationTree
@@ -23,7 +23,7 @@ func my_init(k, image, otherPlayers):
 		add_collision_exception_with(p)
 	keys = k
 	$Sprite.set_texture(image)
-	timer_init()
+	speed_up_timer_init()
 
 func _physics_process(delta):
 	var input_vector = Vector2.ZERO
@@ -78,18 +78,19 @@ func take_damage(damage):
 		queue_free()
 		get_parent().get_parent().game_over()
 
-func timer_init():
-	timer = Timer.new()
-	add_child(timer)
-	timer.autostart = false
-	timer.connect("timeout", self, "speed_down")
-	timer.wait_time = 8
+func speed_up_timer_init():
+	speed_up_timer = Timer.new()
+	add_child(speed_up_timer)
+	speed_up_timer.autostart = false
+	speed_up_timer.connect("timeout", self, "speed_down")
+	speed_up_timer.wait_time = 8
 
 func speed_up():
-	if timer.time_left == 0:
+	if speed_up_timer.time_left == 0:
 		max_speed += 100
-	timer.start()
+		speed_up_timer.start()
 
 func speed_down():
 	max_speed -= 100
-	timer.stop()
+	speed_up_timer.stop()
+
