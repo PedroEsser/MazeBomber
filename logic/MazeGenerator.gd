@@ -7,24 +7,18 @@ func _ready():
 	my_init()
 
 func my_init():
-	#GlobalVariables.change_scale(32)
-	#GlobalVariables.set_dimensions(43, 23)
-	maze = load("res://data_structures/Maze.gd").new(GlobalVariables.my_width, GlobalVariables.my_height)
+	maze = load("res://Logic/Maze.gd").new(GlobalVariables.my_width, GlobalVariables.my_height)
 	maze.generate_maze()
+
 	initialise_walls()
 	initialise_players(2)
-
 	initialise_lights(12)
 	initialise_spawners()
 	
 func initialise_walls():
 	maze.put_walls(.2)
-	maze.empty_corners_v2(5)
-	
-	# make_room(2, 5, 6, 3)
-	# make_room(15, 7, 4, 4)
+	maze.empty_corners(5)
 	maze.make_room(16, 8, 8, 6)
-	# make_room(32, 16, 4, 6)
 
 	var mid_point = Vector2(maze.width/2, maze.height/2) * GlobalVariables.my_scale
 	var max_dist = Vector2.ZERO.distance_to(mid_point)
@@ -49,7 +43,7 @@ func initialise_players(n_players):
 		players.append(preload("res://Player/Player.tscn").instance())
 	
 	for i in range(n_players):
-		var dir = Vector2(i % 2, abs(i % 2 - i / 2))	#var dir = Vector2(i % 2, i / 2)		(0, 0) (1, 1) (0, 1) (1, 0)
+		var dir = Vector2(i % 2, abs(i % 2 - i / 2))
 		var aux = GlobalVariables.my_scale * 1.5 * (Vector2.ONE - dir * 2)
 		players[i].set_position(dir * GlobalVariables.my_scale * Vector2(maze.width, maze.height) + aux)
 			
@@ -57,7 +51,7 @@ func initialise_players(n_players):
 		players[i].my_init(get_keys_for_player(i), get_sprite_for_player(i), players)
 		players[i].set_scale(GlobalVariables.scale_vector)
 		$YSort.add_child(players[i])
-		var spawner = load("res://logic/BoomBoxSpawner.gd").new(players[i].position)
+		var spawner = load("res://Logic/BoomBoxSpawner.gd").new(players[i].position)
 		maze.remove_path(players[i].position)
 		$YSort.add_child(spawner)
 		spawner.spawn()
@@ -66,7 +60,7 @@ func initialise_lights(n_lights):
 	var random_positions = maze.get_random_paths(n_lights)
 	for pos in random_positions:
 		var vec = maze.convert_to_vector(pos)
-		var light = preload("res://Shadows/Light_source.tscn").instance()
+		var light = preload("res://World/Torch.tscn").instance()
 		light.set_position((vec + Vector2(.5, .5)) * GlobalVariables.my_scale)
 		light.set_scale(GlobalVariables.scale_vector)
 		$YSort.add_child(light)
@@ -75,7 +69,7 @@ func initialise_spawners():
 	for pos in maze.path_positions:
 		if Utils.diracs([.05, .95]) == 0:
 			var vec = maze.convert_to_vector(pos)
-			var spawner = load("res://logic/BoomBoxSpawner.gd").new((vec + Vector2(.5, .5)) * GlobalVariables.my_scale)
+			var spawner = load("res://Logic/BoomBoxSpawner.gd").new((vec + Vector2(.5, .5)) * GlobalVariables.my_scale)
 			$YSort.add_child(spawner)
 			spawner.spawn()
 

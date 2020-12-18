@@ -89,17 +89,6 @@ func convert_to_vector(pos):
 	return Vector2(int(pos) % width, int(pos) / width)
 
 func empty_corners(s):
-
-	for i in range(0, s):
-		for j in range(0,s-i):
-			var posUL = convert_to_position(i + 1, j + 1)
-			var posUR = convert_to_position(width - i - 2, j + 1)
-			var posDR = convert_to_position(width - i - 2, height - j - 2)
-			var posDL = convert_to_position(i + 1, height - j - 2)
-			path_positions += [posUL, posUR, posDR, posDL]
-
-
-func empty_corners_v2(s):
 	for i in range(0, s):
 		for d in [[0, 1], [1, 0]]:
 			var posUL = convert_to_position(1 + i * d[0], 1 + i * d[1])

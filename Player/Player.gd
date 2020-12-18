@@ -55,7 +55,6 @@ func _process(_delta):
 		var test_bomb = preload("res://World/TNT.tscn").instance()
 		test_bomb.my_init(self)
 		test_bomb.set_position(self.position)
-		add_collision_exception_with(test_bomb)
 		get_parent().add_child(test_bomb)
 
 	if Input.is_action_just_released(keys[5]) && big_bombs != 0:
@@ -63,7 +62,6 @@ func _process(_delta):
 		var test_bomb = preload("res://World/BigBomb.tscn").instance()
 		test_bomb.my_init(self)
 		test_bomb.set_position(self.position)
-		add_collision_exception_with(test_bomb)
 		get_parent().add_child(test_bomb)
 		
 func add_shield(shield):
@@ -93,4 +91,3 @@ func speed_up():
 func speed_down():
 	max_speed -= 100
 	speed_up_timer.stop()
-

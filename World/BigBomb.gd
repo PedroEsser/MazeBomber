@@ -26,6 +26,7 @@ func _process(delta):
 
 func my_init(owner):
 	self.set_scale(GlobalVariables.scale_vector)
+	add_collision_exception_with(owner)
 	lifetime = Utils.uniform(2000, 3000)/1000
 	damage = base_damage * owner.damage_multiplier
 	damage = Utils.normal(damage, 30, damage-100, damage+100)
@@ -42,3 +43,7 @@ func doExplosion():
 			if collider is wall || collider is player:
 				collider.take_damage(damage_per_ray)
 
+
+func _on_Area2D_body_exited(body):
+	if body is player:
+		remove_collision_exception_with(body)
