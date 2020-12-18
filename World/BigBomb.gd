@@ -26,7 +26,7 @@ func _process(delta):
 
 func my_init(owner):
 	self.set_scale(GlobalVariables.scale_vector)
-	lifetime = Utils.uniform(3000, 4000)/1000
+	lifetime = Utils.uniform(2000, 3000)/1000
 	damage = base_damage + owner.extra_damage * 2
 	damage = Utils.normal(damage, 30, damage-100, damage+100)
 	radius = base_radius + owner.extra_radius * 2
