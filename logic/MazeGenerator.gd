@@ -89,3 +89,9 @@ func get_keys_for_player(i):
 			"p" + str(i+1) + "_up", 
 			"p" + str(i+1) + "_bomb",
 			"p" + str(i+1) + "_big_bomb"]
+
+func game_over():
+	$GameOver.visible = true
+	
+func is_over():
+	return $GameOver.visible

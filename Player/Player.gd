@@ -76,6 +76,7 @@ func take_damage(damage):
 	var dead = $HPBar.take_damage(damage)
 	if dead:
 		queue_free()
+		get_parent().get_parent().game_over()
 
 func timer_init():
 	timer = Timer.new()
