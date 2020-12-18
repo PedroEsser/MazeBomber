@@ -17,11 +17,9 @@ _global_script_class_icons={
 
 config/name="Godot Projects"
 run/main_scene="res://World.tscn"
-config/icon="res://icon.png"
 
 [autoload]
 
-MapData="*res://Singletons/Map_data.gd"
 GlobalVariables="*res://Singletons/Global_variables.gd"
 Utils="*res://Singletons/Utils.gd"
 PowerUpRandomiser="*res://Singletons/Power_up_randomiser.gd"
@@ -30,7 +28,7 @@ PowerUpRandomiser="*res://Singletons/Power_up_randomiser.gd"
 
 window/size/width=1312
 window/size/height=736
-window/stretch/mode="viewport"
+window/stretch/mode="2d"
 
 [importer_defaults]
 
