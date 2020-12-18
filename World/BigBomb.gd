@@ -27,13 +27,13 @@ func _process(delta):
 func my_init(owner):
 	self.set_scale(GlobalVariables.scale_vector)
 	lifetime = Utils.uniform(2000, 3000)/1000
-	damage = base_damage + owner.extra_damage * 2
+	damage = base_damage * owner.damage_multiplier
 	damage = Utils.normal(damage, 30, damage-100, damage+100)
-	radius = base_radius + owner.extra_radius * 2
+	radius = base_radius * owner.radius_multiplier
 	
 func doExplosion():
 	var ds = get_world_2d().get_direct_space_state()
-	var n = GlobalVariables.number_of_rays
+	var n = GlobalVariables.number_of_rays * 2
 	var damage_per_ray = damage/n
 	for i in range(n):
 		var collision = ds.intersect_ray(self.position, self.position + Vector2(cos(TAU*i/n), sin(TAU*i/n)) * GlobalVariables.my_scale * radius, [self], mask)

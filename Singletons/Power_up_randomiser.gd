@@ -5,11 +5,12 @@ const power_ups = [
 	"SpeedPowerUp",
 	"ShieldPowerUp",
 	"MultipleTNTPowerUp",
-	"BigBombPowerUp"
+	"BigBombPowerUp",
+	"DamagePowerUp"
 ]
 
 func get_random_power_up():
-	var choice = Utils.diracs([0.85, 0.05, 0.025, 0.025, 0.02, 0.03])
+	var choice = Utils.diracs([0.45, 0.04, 0.02, 0.02, 0.02, 0.03, 0.42])
 	if choice == 0:
 		return null
 	return power_ups[choice-1]

@@ -27,9 +27,9 @@ func _process(delta):
 func my_init(owner):
 	self.set_scale(GlobalVariables.scale_vector)
 	lifetime = Utils.uniform(1500, 2500)/1000
-	damage = base_damage + owner.extra_damage
+	damage = base_damage * owner.damage_multiplier
 	damage = Utils.normal(damage, 30, damage-100, damage+100)
-	radius = base_radius + owner.extra_radius
+	radius = base_radius * owner.radius_multiplier
 	
 func doExplosion():
 	var ds = get_world_2d().get_direct_space_state()
