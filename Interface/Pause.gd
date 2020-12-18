@@ -5,9 +5,3 @@ func _input(event):
 		var pause_state = not get_tree().paused
 		get_tree().paused = pause_state
 		visible = pause_state
-<<<<<<< Updated upstream
-	
-=======
-
-
->>>>>>> Stashed changes
