@@ -10,7 +10,7 @@ var extra_radius = 0
 var max_speed = BASEMAXSPEED
 var max_bombs = 1
 var number_of_bombs = 1
-var big_bombs = 100
+var big_bombs = 0
 var timer
 
 onready var animationPlayer = $AnimationPlayer
@@ -23,7 +23,7 @@ func my_init(k, image, otherPlayers):
 		add_collision_exception_with(p)
 	keys = k
 	$Sprite.set_texture(image)
-	
+	timer_init()
 
 func _physics_process(delta):
 	var input_vector = Vector2.ZERO
@@ -77,13 +77,16 @@ func take_damage(damage):
 	if dead:
 		queue_free()
 
-func speed_up():
-	max_speed += 100
+func timer_init():
 	timer = Timer.new()
 	add_child(timer)
 	timer.autostart = false
 	timer.connect("timeout", self, "speed_down")
 	timer.wait_time = 8
+
+func speed_up():
+	if timer.time_left == 0:
+		max_speed += 100
 	timer.start()
 
 func speed_down():

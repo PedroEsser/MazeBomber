@@ -7,9 +7,10 @@ func my_init(s):
 	spawner = s
 
 func pick_up(body):
-	body.number_of_bombs = body.max_bombs
-	queue_free()
-	spawner.start_timer()
+	if body.number_of_bombs != body.max_bombs:
+		body.number_of_bombs = body.max_bombs
+		queue_free()
+		spawner.start_timer()
 
 func _on_BoomBox_body_entered(body):
 	if body is player:

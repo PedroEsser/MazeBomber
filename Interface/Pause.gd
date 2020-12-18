@@ -6,6 +6,3 @@ func _input(event):
 		get_tree().paused = pause_state
 		visible = pause_state
 	
-#geh
-
-

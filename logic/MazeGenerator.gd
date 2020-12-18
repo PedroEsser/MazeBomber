@@ -14,8 +14,8 @@ func my_init():
 	initialise_walls()
 	initialise_players(2)
 
-	initialise_lights(10)
-	#initialise_spawners()
+	initialise_lights(12)
+	initialise_spawners()
 	
 func initialise_walls():
 	maze.put_walls(.1)
@@ -69,7 +69,7 @@ func initialise_lights(n_lights):
 		var light = preload("res://Shadows/Light_source.tscn").instance()
 		light.set_position((vec + Vector2(.5, .5)) * GlobalVariables.my_scale)
 		light.set_scale(GlobalVariables.scale_vector)
-		add_child(light)
+		$YSort.add_child(light)
 		
 func initialise_spawners():
 	for pos in maze.path_positions:
@@ -78,7 +78,6 @@ func initialise_spawners():
 			var spawner = load("res://logic/BoomBoxSpawner.gd").new((vec + Vector2(.5, .5)) * GlobalVariables.my_scale)
 			$YSort.add_child(spawner)
 			spawner.spawn()
-	pass
 
 func get_sprite_for_player(i):
 	return load("res://Player/Player" + str(i+1) + ".png")

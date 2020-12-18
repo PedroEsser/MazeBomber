@@ -1,7 +1,7 @@
 extends Node2D
 
 var health = 100
-var shield = 50
+var shield = 0
 
 func _draw():
 	var bar_size = GlobalVariables.pixel_art_scale * .75
