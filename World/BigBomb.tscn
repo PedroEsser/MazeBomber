@@ -43,8 +43,8 @@ tracks/0/keys = {
 radius = 8.0
 
 [node name="BigBomb" type="StaticBody2D"]
-collision_layer = 2147483649
-collision_mask = 2147483650
+collision_layer = 2147483650
+collision_mask = 2147483649
 script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -70,7 +70,7 @@ mode = 2
 shadow_enabled = true
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_mask = 2
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 4 )
