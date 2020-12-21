@@ -43,13 +43,6 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity)
 
 func _process(_delta):
-	#if Input.is_action_just_pressed("mouse_click"):
-	#	update()
-	#	var ds = get_world_2d().get_direct_space_state()
-	#	print(ds.intersect_ray(self.position, get_global_mouse_position(), [self]))
-	#	var collision = ds.intersect_ray(self.position, get_global_mouse_position(), [self])
-	#	if !collision.empty():
-	#		collision.get("collider").take_damage(10)
 	if Input.is_action_just_released(keys[4]) && number_of_bombs != 0:
 		number_of_bombs -= 1
 		var test_bomb = preload("res://World/TNT.tscn").instance()
@@ -81,12 +74,12 @@ func speed_up_timer_init():
 	add_child(speed_up_timer)
 	speed_up_timer.autostart = false
 	speed_up_timer.connect("timeout", self, "speed_down")
-	speed_up_timer.wait_time = 8
+	speed_up_timer.wait_time = 10
 
 func speed_up():
 	if speed_up_timer.time_left == 0:
 		max_speed += 100
-		speed_up_timer.start()
+	speed_up_timer.start()
 
 func speed_down():
 	max_speed -= 100
